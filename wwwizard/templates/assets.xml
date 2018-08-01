@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <template id="assets_frontend" name="WW CMS Form frontend assets" inherit_id="website.assets_frontend">
+
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/css" href="/wwwizard/static/src/less/cms_form_ext.less" />
+        </xpath>
+
+        <xpath expr="//script[last()]" position="after">
+			<script type="text/javascript" src="/wwwizard/static/src/js/field_calc.js"></script>
+        </xpath>
+    </template>
+</odoo>

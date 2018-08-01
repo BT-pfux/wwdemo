@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <template id="cms_form.wizard_progress_bar">
+        <div class="row">
+            <ul class="status-bar wizard-status-bar hidden-xs">
+                <t t-set="current_step" t-value="form.wiz_current_step()" />
+                <t t-foreach="form.wiz_steps" t-as="step">
+                  <t t-set="info" t-value="form.wiz_get_step_info(step)" />
+                  <li t-attf-id="step_#{step}" t-attf-class="step">
+                    <span t-if="info.get('title')" t-esc="info['title']" t-att-title="info.get('description')"
+                          t-attf-class="#{page == step and 'active text-primary' or 'text-muted'}" />
+                  </li>
+                </t>
+            </ul>
+        </div>
+    </template>
+
+    <template id="cms_form.single_fieldset">
+        <fieldset t-att-id="fset['id']" t-att-class="fset.get('css_extra_klass')">
+            <t t-if="show_legend is not False and fset.get('title')">
+              <legend t-esc="fset['title']" />
+            </t>
+            <div class="fieldset-container">
+                <t t-if="form.wiz_current_step() == 1">
+                    <t t-if="fset.get('description')">
+                        <p class="fieldset-description" t-esc="fset['description']" />
+                    </t>
+                    <t t-foreach="fset['fields']" t-as="fname">
+                      <t t-call="cms_form.single_field" t-attf-class="form-input"/>
+                        <t t-if="fname == 'overnight_rate_1'">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label">Corresponds to monthly</label>
+                                <label class="col-md-3 col-sm-4 control-label" id="compute_monthly"/>
+                            </div>
+                        </t>
+                        <t t-if="fname == 'is_active_2'">
+                            <input type="button" class="btn btn-default" onclick="render_child()" value="+ Add insured"/>
+                        </t>
+                    </t>
+                </t>
+                <t t-elif="form.wiz_current_step() == 2">
+                    <t t-set="field_values" t-value="form.wiz_load_step(1)"/>
+                    <t t-foreach="fset['fields']" t-as="fname">
+                        <t t-if="'overnight_rate_1' in fname">
+                            <t t-call="cms_form.single_field" t-attf-class="form-input"/>
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label">Corresponds to monthly</label>
+                                <label class="col-md-3 col-sm-4 control-label" id="compute_monthly"/>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <t t-if="form_fields.get(fname) and not form_fields[fname].get('is_subfield')">
+                                <t t-set="field" t-value="form_fields[fname]" />
+                                <div class="row">
+                                    <label class="col-md-3 col-sm-4 control-label" t-esc="form_fields[fname]['string']"/>
+                                    <label class="col-md-3 col-sm-4 control-label" t-esc="field_values[fname]"/>
+                                </div>
+                            </t>
+                        </t>
+                    </t>
+                </t>
+                <t t-elif="form.wiz_current_step() == 3">
+                    <t t-set="quotation" t-value="request.env['sale.order'].browse(61)"/>
+                    <t t-call="website_quote.so_quotation"/>
+                </t>
+            </div>
+        </fieldset>
+    </template>
+
+    <template id="cms_form.wizard_form_buttons" name="CMS wizard form buttons"
+          inherit_id="cms_form.base_form_buttons" primary="True">
+
+      <xpath expr="//div[hasclass('form-controls')]" position="replace">
+        <div class="form-group form-controls">
+          <t t-if="form.wiz_next_step()">
+              <t t-if="form.wiz_current_step() == 2">
+                  <input type="button" class="btn btn-primary btn-next pull-right" onClick="window.location.href='/de_DE/my/orders/44'" value="Get order"/>
+              </t>
+              <t t-else="">
+                  <button type="submit" name="wiz_submit" value="next" class="btn btn-primary btn-next pull-right">Next</button>
+              </t>
+          </t>
+          <t t-else="">
+            <button type="submit" class="btn btn-primary pull-right">Submit</button>
+          </t>
+          <t t-if="form.wiz_prev_step()">
+            <button type="submit" name="wiz_submit" value="prev" class="btn btn-primary btn-prev pull-left">Prev</button>
+          </t>
+         </div>
+      </xpath>
+
+    </template>
+
+</odoo>

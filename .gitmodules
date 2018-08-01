@@ -1,0 +1,4 @@
+[submodule "ext/website-cms"]
+	path = ext/website-cms
+	url = https://github.com/OCA/website-cms
+	branch = 11.0
