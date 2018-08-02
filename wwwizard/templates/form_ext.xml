@@ -31,12 +31,12 @@
                       <t t-call="cms_form.single_field" t-attf-class="form-input"/>
                         <t t-if="fname == 'overnight_rate_1'">
                             <div class="form-group">
-                                <label class="col-md-3 col-sm-4 control-label">Corresponds to monthly</label>
+                                <label class="col-md-4 col-sm-4 control-label">Beitrag pro Monat</label>
                                 <label class="col-md-3 col-sm-4 control-label" id="compute_monthly"/>
                             </div>
                         </t>
                         <t t-if="fname == 'is_active_2'">
-                            <input type="button" class="btn btn-default" onclick="render_child()" value="+ Add insured"/>
+                            <input type="button" class="btn btn-default" onclick="render_child()" value="+ Kind mitversichern"/>
                         </t>
                     </t>
                 </t>
@@ -46,7 +46,7 @@
                         <t t-if="'overnight_rate_1' in fname">
                             <t t-call="cms_form.single_field" t-attf-class="form-input"/>
                             <div class="form-group">
-                                <label class="col-md-3 col-sm-4 control-label">Corresponds to monthly</label>
+                                <label class="col-md-3 col-sm-4 control-label">Beitrag pro Monat</label>
                                 <label class="col-md-3 col-sm-4 control-label" id="compute_monthly"/>
                             </div>
                         </t>
@@ -73,24 +73,68 @@
           inherit_id="cms_form.base_form_buttons" primary="True">
 
       <xpath expr="//div[hasclass('form-controls')]" position="replace">
-        <div class="form-group form-controls">
+        <div class="form-group form-controls" id="control_buttons">
           <t t-if="form.wiz_next_step()">
               <t t-if="form.wiz_current_step() == 2">
-                  <input type="button" class="btn btn-primary btn-next pull-right" onClick="window.location.href='/de_DE/my/orders/44'" value="Get order"/>
+                  <t t-set="order_id" t-value="request.session['sale_order_id']"/>
+                  <input class="btn btn-primary btn-next pull-right" t-att-onClick="'window.location.href=\'/my/orders/%s\'' % order_id" value="Weiter"/>
               </t>
               <t t-else="">
-                  <button type="submit" name="wiz_submit" value="next" class="btn btn-primary btn-next pull-right">Next</button>
+                  <button type="submit" name="wiz_submit" value="next" class="btn btn-primary btn-next pull-right">Weiter</button>
               </t>
           </t>
           <t t-else="">
-            <button type="submit" class="btn btn-primary pull-right">Submit</button>
+            <button type="submit" class="btn btn-primary pull-right">Fertig</button>
           </t>
           <t t-if="form.wiz_prev_step()">
-            <button type="submit" name="wiz_submit" value="prev" class="btn btn-primary btn-prev pull-left">Prev</button>
+            <input type="button" class="btn btn-primary btn-prev pull-left" onClick="window.location.href='/cms/wiz/wizard/page/1'" value="Bisherige"/>
           </t>
          </div>
       </xpath>
 
     </template>
 
+    <template id="cms_form.field_widget_date" name="CMS form date field widget">
+
+      <div class="input-group">
+        <!-- TODO: show date in user locale and convert value server side -->
+        <input t-att-name="widget.w_fname" t-att-id="widget.w_fname"
+               t-attf-class="form-control js_datepicker #{widget.w_css_klass}"
+               type="text" data-format="dd.mm.yy" placeholder="DD.MM.YYYY"
+               t-att-data-params='widget.w_data_json()'
+               t-att-value="widget.w_field_value"
+               t-att-required="widget.w_field['required'] and '1' or None"
+               />
+        <span class="input-group-addon js_datepicker_trigger">
+          <span class="fa fa-calendar"></span>
+        </span>
+      </div>
+
+    </template>
+
+    <template id="cms_form.base_form" name="CMS form template">
+
+      <form t-att-action="form.form_action" t-att-method="form.form_method"
+            t-att-data-form="form.form_json_info()"
+            t-att-class="form.form_css_klass"
+            enctype="multipart/form-data">
+
+        <t t-if="form.form_method == 'POST'">
+            <input type="hidden" name="csrf_token" t-att-value="form.o_request.csrf_token()"/>
+        </t>
+
+        <t t-set="form_fields" t-value="form.form_fields(hidden=False)" />
+        <t t-set="form_hidden_fields" t-value="form.form_fields(hidden=True)" />
+        <t t-set="form_fieldsets" t-value="form.form_fieldsets()" />
+
+        <t t-foreach="form_hidden_fields" t-as="hidden_fname">
+          <t t-raw="form_hidden_fields[hidden_fname]['widget'].render()" />
+        </t>
+
+        <t t-call="#{ form.form_fields_template }" />
+        <t t-call="#{ form.form_buttons_template }" />
+
+      </form>
+
+    </template>
 </odoo>

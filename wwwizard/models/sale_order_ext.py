@@ -1,4 +1,5 @@
 from odoo import api, models, fields
+from odoo.http import request
 
 
 class WWSaleOrderExt(models.Model):
@@ -35,4 +36,6 @@ class WWSaleOrderExt(models.Model):
                                                          })
         vals.update({'order_line': [(0, 0, {'id': order_line.id,
                                             'order_id': self.id})]})
+
+        request.session['sale_order_id'] = rec.id
         return rec

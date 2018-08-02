@@ -10,12 +10,9 @@ $(window).on("load", function () {
         }
     });
     selector.change();
-    if ($("div[role=alert]")){
-        $("div[role=alert]").alert("close");
-    }
 
 });
 
 function render_child(){
-    console.log("hola");
+    console.log("Not yet");
 }

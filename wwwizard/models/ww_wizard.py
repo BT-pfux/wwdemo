@@ -39,7 +39,7 @@ class ChildSelectionWizard(models.AbstractModel):
         },
         {
             'id': 'insured_people',
-            'title': 'Insured people',
+            'title': 'Versicherte Person 1 (Versicherungsnehmer)',
             'fields': [
                 'child_birth_1',
                 'overnight_rate_1',
@@ -54,17 +54,18 @@ class ChildSelectionWizard(models.AbstractModel):
     ]
 
     user_id = fields.Many2one("res.users")
-    start_date = fields.Selection([('01-08-2018', '01-08-2018'),
-                                   ('01-09-2018', '01-09-2018'),
-                                   ('01-10-2018', '01-10-2018'),
-                                   ('01-11-2018', '01-11-2018'),
-                                   ('01-12-2018', '01-12-2018'),
-                                   ('01-01-2019', '01-01-2019'),
-                                   ('01-02-2019', '01-02-2019')],)
-    child_birth_1 = fields.Date(string="Birthday")
-    child_birth_2 = fields.Date()
-    child_birth_3 = fields.Date()
-    overnight_rate_1 = fields.Selection([('10','10 €'),
+    start_date = fields.Selection([('01.08.2018', '01.08.2018'),
+                                   ('01.09.2018', '01.09.2018'),
+                                   ('01.10.2018', '01.10.2018'),
+                                   ('01.11.2018', '01.11.2018'),
+                                   ('01.12.2018', '01.12.2018'),
+                                   ('01.01.2019', '01.01.2019'),
+                                   ('01.02.2019', '01.02.2019')],
+                                  string="Gewünschter Versicherungsbeginn")
+    child_birth_1 = fields.Date(string="Geburtsdatum")
+    child_birth_2 = fields.Date(string="Geburtsdatum")
+    child_birth_3 = fields.Date(string="Geburtsdatum")
+    overnight_rate_1 = fields.Selection([('10', '10 €'),
                                        ('15', '15 €'),
                                        ('20', '20 €'),
                                        ('25', '25 €'),
@@ -77,8 +78,8 @@ class ChildSelectionWizard(models.AbstractModel):
                                        ('60', '60 €'),
                                        ('65', '65 €'),
                                        ('70', '70 €'),
-                                       ('75', '75 €')], default='65', string="Overnight rate")
-    overnight_rate_2 = fields.Selection([('10','10'),
+                                       ('75', '75 €')], default='65', string="Tagegeldsatz")
+    overnight_rate_2 = fields.Selection([('10', '10'),
                                        ('15', '15'),
                                        ('20', '20'),
                                        ('25', '25'),
@@ -92,7 +93,7 @@ class ChildSelectionWizard(models.AbstractModel):
                                        ('65', '65'),
                                        ('70', '70'),
                                        ('75', '75')], default='65')
-    overnight_rate_3 = fields.Selection([('10','10'),
+    overnight_rate_3 = fields.Selection([('10', '10'),
                                        ('15', '15'),
                                        ('20', '20'),
                                        ('25', '25'),
@@ -112,7 +113,7 @@ class ChildSelectionWizard(models.AbstractModel):
 
     @property
     def form_title(self):
-        return 'Nursing Care Insurance: Enter your classification data'
+        return 'Pflegetagegeld-Versicherung: Eingabe Ihrer Tarifierungsdaten'
 
 
 class WWResumeInsurance(models.AbstractModel):
@@ -124,7 +125,7 @@ class WWResumeInsurance(models.AbstractModel):
 
     @property
     def form_title(self):
-        return 'Nursing Care Insurance: Enter your classification data'
+        return 'Pflegetagegeld-Versicherung: Eingabe Ihrer Tarifierungsdaten'
 
 
 class WWSaleOrder(models.AbstractModel):
@@ -136,4 +137,4 @@ class WWSaleOrder(models.AbstractModel):
 
     @property
     def form_title(self):
-        return 'Nursing Care Insurance: Enter your classification data'
+        return 'Pflegetagegeld-Versicherung: Eingabe Ihrer Tarifierungsdaten'
