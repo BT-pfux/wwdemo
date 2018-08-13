@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <template id="fields_ext" inherit_id="auth_signup.fields">
+
+        <xpath expr="//div[hasclass('form-group', 'field-confirm_password')]" position="after">
+            <h3>Einwilligungserklärung</h3>
+            <div class="form-group field-agreement-email">
+                <div class="col-md-1">
+                    <input type="checkbox" id="email-agreement" required="required"/>
+                </div>
+                <div class="col-md-11">
+                    <label for="email-agreement">Ja, ich bin einverstanden, dass mich die Wüstenrot &amp; Württembergische-Gruppe zukünftig über Finanzdienstleistungen per E-Mail/Kurznachricht informiert.</label>
+                </div>
+            </div>
+            <div class="form-group field-agreement-phone">
+                <div class="col-md-1">
+                    <input type="checkbox" id="phone-agreement" required="required"/>
+                </div>
+                <div class="col-md-11">
+                    <label for="phone-agreement">Ja, ich bin einverstanden, dass mich die Wüstenrot &amp; Württembergische-Gruppe zukünftig über Finanzdienstleistungen per Telefon informiert.</label>
+                </div>
+            </div>
+            <div class="information">
+                Mir ist bekannt, dass diese Einwilligung freiwillig ist und dass ich sie jederzeit ohne Einfluss auf den/die abgeschlossenen Vertrag/Verträge widerrufen kann.
+                <br/><br/>
+                Sofern Sie uns Ihr Einverständnis erteilt haben, erhalten Sie im Nachgang eine E-Mail mit einem Bestätigungslink. Zum Schutz Ihrer Daten ist die Zustimmung erst nach Ihrer Bestätigung gültig.
+            </div>
+            <div class="form-group field-agreement-data">
+                <div class="col-md-1">
+                    <input type="checkbox" id="data-agreement" required="required"/>
+                </div>
+                <div class="col-md-11">
+                    <label for="data-agreement">
+                        <b>Datenschutzhinweis*</b>
+                        <br/>Ich habe die Datenschutzhinweise gelesen. In Kurzform bedeutet dies: Wir nutzen nur das Wesentliche und gehen mit Ihren Daten vertrauensvoll um.
+                    </label>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

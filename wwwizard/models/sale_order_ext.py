@@ -5,7 +5,7 @@ from odoo.http import request
 class WWSaleOrderExt(models.Model):
     _inherit = "sale.order"
 
-    ww_insurance_ids = fields.One2many("ww.insurance", "sale_order_id")
+    #ww_insurance_ids = fields.One2many("ww.insurance", "sale_order_id")
 
     @api.model
     def create(self, vals):

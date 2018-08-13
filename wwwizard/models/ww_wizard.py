@@ -22,6 +22,7 @@ class WWWizard(models.AbstractModel):
     def create(self, vals):
         pass
 
+
 class ChildSelectionWizard(models.AbstractModel):
 
     _name = 'child.wizard'
