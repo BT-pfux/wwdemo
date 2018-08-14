@@ -35,5 +35,4 @@ class WWSaleOrderExt(models.Model):
                                             'order_id': self.id})]})
 
         request.session['sale_order_id'] = rec.id
-        rec.write({'state': 'sent'})
         return rec
