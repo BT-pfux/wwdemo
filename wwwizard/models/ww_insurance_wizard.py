@@ -15,15 +15,13 @@ class WWInsuranceWizard(models.TransientModel):
         if not vals:
             vals = {}
 
-        insurance = self.env['ww.insurance'].create({
-            'start_date': vals['start_date']
-        })
+        insurance = self.env['ww.insurance'].create({})
+
 
         child_1 = False
         if vals['child_birth_1']:
             child_1 = self.env['ww.child'].create({
                 'insurance_id': insurance.id,
-                'birthday': datetime.strptime(vals['child_birth_1'],"%d.%m.%Y").date(),
                 'overnight': vals['overnight_rate_1']
             })
 
