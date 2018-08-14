@@ -56,7 +56,7 @@
                                 <div class="col-md-11">
                                     <t t-set="link" t-value="request.session['link']"/>
                                     <label for="document_agreement">
-                                        Hiermit bestätige ich, dass ich die angebotsrelevanten <a t-att-href="link">Dokumente</a> heruntergeladen habe und diese akzeptiere.*
+                                        Hiermit bestätige ich, dass ich die angebotsrelevanten <a t-att-href="'/sign/%s' % link">Dokumente</a> heruntergeladen habe und diese akzeptiere.*
                                     </label>
                                 </div>
                             </div>

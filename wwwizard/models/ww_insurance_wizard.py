@@ -32,7 +32,6 @@ class WWInsuranceWizard(models.TransientModel):
         })
 
         sale_order = self.env['sale.order'].create(vals)
-
         insurance.write({
             'sale_order_id': sale_order.id
         })
