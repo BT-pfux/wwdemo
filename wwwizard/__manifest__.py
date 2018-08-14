@@ -22,7 +22,7 @@
     'name': 'WW Wizard Prototype',
     'summary': 'WW Wizard Prototype',
     'category': '',
-    'version': '11.0.0.0.0',
+    'version': '11.0.0.1.0',
     'author': 'brain-tec AG',
     'license': 'AGPL-3',
     'website': 'http://www.braintec-group.com/en/',
@@ -32,5 +32,6 @@
                 'website_sale',
                 'website_sign'],
     'data': ['templates/form_ext.xml',
+             'templates/signup_ext.xml',
              'templates/assets.xml', ],
 }

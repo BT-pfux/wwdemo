@@ -1,5 +1,9 @@
 from odoo import api, models, fields
+from odoo import exceptions
+from psycopg2 import IntegrityError
+from werkzeug.utils import redirect
 
+from odoo.http import request
 
 class WWWizard(models.AbstractModel):
     """A wizard form."""
@@ -22,19 +26,20 @@ class WWWizard(models.AbstractModel):
     def create(self, vals):
         pass
 
+
 class ChildSelectionWizard(models.AbstractModel):
 
     _name = 'child.wizard'
     _inherit = 'wizard'
-    _form_model = 'sale.order'
+    _form_model = 'ww.insurance.wizard'
     _form_required_fields = ('start_date','child_birth_1','overnight_rate_1', )
-    _form_fields_hidden = ('user_id','child_birth_2','overnight_rate_2','is_active_2','child_birth_3','overnight_rate_3','is_active_3')
+    _form_fields_hidden = ('user_id','child_birth_2','overnight_rate_2', 'is_active_2','child_birth_3','overnight_rate_3','is_active_3')
     _form_fieldsets = [
         {
             'id': 'main',
             'title': '',
             'fields': [
-                'start_date'
+                'start_date',
             ],
         },
         {
@@ -43,12 +48,6 @@ class ChildSelectionWizard(models.AbstractModel):
             'fields': [
                 'child_birth_1',
                 'overnight_rate_1',
-                'child_birth_2',
-                'overnight_rate_2',
-                'is_active_2',
-                'child_birth_3',
-                'overnight_rate_3',
-                'is_active_3',
             ],
         }
     ]
