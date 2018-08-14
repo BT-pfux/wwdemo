@@ -8,7 +8,6 @@ class WWInsuranceWizard(models.TransientModel):
     _name = "ww.insurance.wizard"
 
     start_date = fields.Date()
-    child_birth_1 = fields.Date(string="Geburtsdatum")
     overnight_rate_1 = fields.Float()
     
     def create(self, vals):
