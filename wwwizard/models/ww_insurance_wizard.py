@@ -31,7 +31,7 @@ class WWInsuranceWizard(models.TransientModel):
             'partner_id': self.env.user.id
         })
 
-        sale_order = self.env['sale.order'].create(vals)
+        sale_order = self.env['sale.order'].sudo().create(vals)
         insurance.write({
             'sale_order_id': sale_order.id
         })
@@ -39,7 +39,8 @@ class WWInsuranceWizard(models.TransientModel):
         request.session['overnight_1'] = vals['overnight_rate_1']
 
         signature_template = self.env['signature.request.template'].browse(8)
-        signature_template_copy = signature_template.copy()
+        signature_template_copy = signature_template.sudo().copy()
 
         request.session['link'] = signature_template_copy.share(signature_template_copy.id)
+
         return super(WWInsuranceWizard, self).create(vals)

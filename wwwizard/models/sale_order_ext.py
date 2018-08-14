@@ -29,10 +29,16 @@ class WWSaleOrderExt(models.Model):
         order_line = self.env['sale.order.line'].create({'order_id': rec.id,
                                                          'product_id': product.id,
                                                          'product_uom_qty': 1,
-                                                         'price_unit': float(vals['overnight_rate_1']) * 30,
+                                                         'price_unit': float(vals['overnight_rate_1']) * 6 ,
                                                          })
         vals.update({'order_line': [(0, 0, {'id': order_line.id,
                                             'order_id': self.id})]})
 
         request.session['sale_order_id'] = rec.id
         return rec
+
+    @api.multi
+    def _cart_update(self, product_id=None, line_id=None, add_qty=0, set_qty=0, attributes=None, **kwargs):
+        sale_order = super(WWSaleOrderExt, self)._cart_update(product_id, line_id, add_qty, set_qty, attributes)
+        self.write({'state': 'sent'})
+        return sale_order
