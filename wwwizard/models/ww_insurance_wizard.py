@@ -16,13 +16,10 @@ class WWInsuranceWizard(models.TransientModel):
 
         insurance = self.env['ww.insurance'].create({})
 
-
-        child_1 = False
-        if vals['child_birth_1']:
-            child_1 = self.env['ww.child'].create({
-                'insurance_id': insurance.id,
-                'overnight': vals['overnight_rate_1']
-            })
+        child_1 = self.env['ww.child'].create({
+            'insurance_id': insurance.id,
+            'overnight': vals['overnight_rate_1']
+        })
 
         if child_1:
             insurance.write({

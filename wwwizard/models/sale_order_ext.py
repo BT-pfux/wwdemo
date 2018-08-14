@@ -29,11 +29,11 @@ class WWSaleOrderExt(models.Model):
         order_line = self.env['sale.order.line'].create({'order_id': rec.id,
                                                          'product_id': product.id,
                                                          'product_uom_qty': 1,
-                                                         'price_unit': vals['overnight_rate_1'] * 30,
+                                                         'price_unit': float(vals['overnight_rate_1']) * 30,
                                                          })
         vals.update({'order_line': [(0, 0, {'id': order_line.id,
                                             'order_id': self.id})]})
 
         request.session['sale_order_id'] = rec.id
-        rec.state = 'sent'
+        rec.write({'state': 'sent'})
         return rec
