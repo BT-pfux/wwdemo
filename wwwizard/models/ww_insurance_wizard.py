@@ -42,4 +42,5 @@ class WWInsuranceWizard(models.TransientModel):
         signature_template_copy = signature_template.sudo().copy()
 
         request.session['link'] = signature_template_copy.share(signature_template_copy.id)
+
         return super(WWInsuranceWizard, self).create(vals)

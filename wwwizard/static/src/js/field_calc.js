@@ -3,7 +3,7 @@ $(window).on("load", function () {
     selector.on("change", function(){
         var value = $("select[name=overnight_rate_1]").val();
         if (value) {
-            $("#compute_monthly").html(String(parseInt(value) * 30) + " €");
+            $("#compute_monthly").html(String(parseInt(value) * 6) + " €");
         }
         else{
             $("#compute_monthly").html('');
