@@ -39,6 +39,6 @@ class WWSaleOrderExt(models.Model):
 
     @api.multi
     def _cart_update(self, product_id=None, line_id=None, add_qty=0, set_qty=0, attributes=None, **kwargs):
-        sale_order = super(WWSaleOrderExt, self)._cart_update(product_id, line_id, add_qty, set_qty, attributes, **kwargs)
+        sale_order = super(WWSaleOrderExt, self)._cart_update(product_id=product_id, line_id=line_id, add_qty=add_qty, set_qty=set_qty, attributes=attributes, **kwargs)
         self.write({'state': 'sent'})
         return sale_order
