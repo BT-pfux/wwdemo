@@ -92,7 +92,7 @@
               <t t-if="form.wiz_current_step() == 2">
                   <t t-set="order_id" t-value="request.session['sale_order_id']"/>
                   <t t-set="link" t-value="request.session['link']"/>
-                  <input class="btn btn-primary btn-next pull-right" t-att-onClick="'window.location.href=\'/sign/%s\'' % link " value="Weiter"/>
+                  <input class="btn btn-primary btn-next pull-right" t-att-onClick="'check_agreement(\'%s\')' % link " value="Weiter"/>
               </t>
               <t t-else="">
                   <button type="submit" name="wiz_submit" value="next" class="btn btn-primary btn-next pull-right">Weiter</button>

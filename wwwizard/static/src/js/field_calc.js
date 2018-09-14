@@ -16,3 +16,16 @@ $(window).on("load", function () {
 function render_child(){
     console.log("Not yet");
 }
+
+function check_agreement(path){
+    var checked = document.getElementById('document_agreement');
+
+    if(checked.checked){
+        path = '/sign/'+path;
+        window.location.href=path;
+    }
+    else{
+        checked.focus();
+        alert("You have to check the agreements");
+    }
+}
