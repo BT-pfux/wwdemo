@@ -10,7 +10,7 @@ class WWUsersExt(models.Model):
             vals = {}
 
         portal = self.env.ref('base.group_portal')
-        if vals['groups_id']:
+        if vals.get('groups_id', False):
             groups = vals['groups_id']
         else:
             groups = [(6,0,[])]

@@ -50,7 +50,7 @@
                                 <label class="col-md-3 col-sm-4 control-label" id="compute_monthly"/>
                             </div>
                             <div class="form-group field-agreement-document">
-                                <div class="col-md-1">
+                                <div class="col-md-1" id="agreement_colored">
                                     <input type="checkbox" id="document_agreement"/>
                                 </div>
                                 <div class="col-md-11">
@@ -92,7 +92,7 @@
               <t t-if="form.wiz_current_step() == 2">
                   <t t-set="order_id" t-value="request.session['sale_order_id']"/>
                   <t t-set="link" t-value="request.session['link']"/>
-                  <input class="btn btn-primary btn-next pull-right" t-att-onClick="'window.location.href=\'/sign/%s\'' % link " value="Weiter"/>
+                  <input class="btn btn-primary btn-next pull-right" t-att-onClick="'check_agreement(\'%s\')' % link " value="Weiter"/>
               </t>
               <t t-else="">
                   <button type="submit" name="wiz_submit" value="next" class="btn btn-primary btn-next pull-right">Weiter</button>

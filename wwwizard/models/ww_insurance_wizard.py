@@ -3,6 +3,9 @@ from odoo.http import request
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DATE_FORMAT
 from datetime import date, datetime
 
+# Global variable for having the right ID for the prototype
+SIGNATURE_ID = 49
+
 
 class WWInsuranceWizard(models.TransientModel):
     _name = "ww.insurance.wizard"
@@ -38,7 +41,7 @@ class WWInsuranceWizard(models.TransientModel):
         request.session['insurance_id'] = insurance.id
         request.session['overnight_1'] = vals['overnight_rate_1']
 
-        signature_template = self.env['signature.request.template'].browse(8)
+        signature_template = self.env['signature.request.template'].browse(SIGNATURE_ID)
         signature_template_copy = signature_template.sudo().copy()
 
         request.session['link'] = signature_template_copy.share(signature_template_copy.id)
